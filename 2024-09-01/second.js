@@ -80,4 +80,6 @@ const threeParameters = newArray.map((element, index, array) => {
     return element + 5;
 })
 
+// 10. Muudame objektiks, et console.log-ides oleks paremini märgata
+
 console.log({threeParameters: threeParameters} );
