@@ -5,6 +5,7 @@ import PropDrilling from './components/PropDrilling';
 import Counter from './components/Counter';
 import Show from './components/Show';
 import Context from "./components/Context";
+import Mina from './components/Mina';
 
 function App() {
   const [show, setShow] = useState(true);
@@ -38,8 +39,14 @@ function App() {
     alert('You clicked me!');
   }
 
+  const hobbies = ["Trenni tegemine", "Kitarri mängimine", "Muusika kuulamine"];
+
   return (
     <>
+      <div>
+        <Mina name="Liisi Loomets" hobbies={hobbies}/>
+      </div>
+
       <Context />
       <Show 
         show={show}
