@@ -1,7 +1,7 @@
 const cats = [
   {
     "id": "c9f9f942-bedc-475c-b5c5-a016a15b2a2a",
-    "name": "Tommi1",
+    "name": "Tommi",
     "createdAt": 1727099313240,
     "updatedAt": null,
     "deleted": false
@@ -18,7 +18,7 @@ const cats = [
     "name": "Männi",
     "createdAt": 1727099345348,
     "updatedAt": null,
-    "deleted": false
+    "deleted": true
   }
 ];
 
@@ -35,25 +35,36 @@ exports.create = (req, res) => {
 
   cats.push(newCat);
   res.send(newCat);
-
-  //res.send(req.params);
-  res.send(name);
 };
 
 exports.read = (req, res) => {
-  res.send(cats);
+  const activeCats = cats.filter(cat => !cat.deleted);
+  res.send(activeCats);
 };
 
 exports.update = (req, res) => {
-  const { id } = req.body;
-  const { name } = req.body;
+  const { id, name } = req.body;
+  
+  const catIndex = cats.findIndex(cat => cat.id === id);
 
-  const catIndex = cats.find((cat) => cat.id === id);
-
-  cats[catIndex].name = name;
-  cats[catIndex].updatedAt = Date.now();
-
-  res.send(cats[catIndex]);
+  if (catIndex !== -1) {
+    cats[catIndex].name = name;
+    cats[catIndex].updatedAt = Date.now();
+    res.send(cats[catIndex]);
+  } else {
+    res.status(404).send({ message: 'Cat not found' });
+  }
 };
 
-exports.delete = (req, res) => {};
+exports.delete = (req, res) => {
+  const { id } = req.params;
+  
+  const catIndex = cats.findIndex(cat => cat.id === id);
+  
+  if (catIndex !== -1) {
+    cats[catIndex].deleted = true; 
+    res.send({ message: 'Cat deleted' });
+  } else {
+    res.status(404).send({ message: 'Cat not found' });
+  }
+};
