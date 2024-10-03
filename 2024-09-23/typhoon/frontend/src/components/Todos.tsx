@@ -12,7 +12,20 @@ import {
   Button,
   Paper,
 } from "@mui/material";
+import { green, red } from "@mui/material/colors";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import SubmitTodo from "./SubmitTodo";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: green[700],
+    },
+    secondary: {
+      main: red[700],
+    }
+  },
+});
 
 type Todo = {
   id: number;
@@ -63,62 +76,64 @@ const Todos = () => {
   };
 
   return (
-    <Box p={2}>
-      <Typography variant="h3" gutterBottom>
-        To-Do List
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell>Priority</TableCell>
-              <TableCell>Created At</TableCell>
-              <TableCell>Updated At</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {todos.map((todo) => (
-              <TableRow key={todo.id}>
-                <TableCell>{todo.title}</TableCell>
-                <TableCell>{todo.priority}</TableCell>
-                <TableCell>
-                  {new Date(todo.createdAt).toLocaleString()}
-                </TableCell>
-                <TableCell>
-                  {todo.updatedAt
-                    ? new Date(todo.updatedAt).toLocaleString()
-                    : "N/A"}
-                </TableCell>
-                <TableCell>
-                  <Button
-                    onClick={() => handleEdit(todo)}
-                    color="primary"
-                    variant="outlined"
-                    style={{ marginRight: 8 }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    onClick={() => handleDelete(todo.id)}
-                    color="secondary"
-                    variant="outlined"
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
+    <ThemeProvider theme={theme}>
+      <Box p={2}>
+        <Typography variant="h3" gutterBottom>
+          To-Do List
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Title</TableCell>
+                <TableCell>Priority</TableCell>
+                <TableCell>Created At</TableCell>
+                <TableCell>Updated At</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <SubmitTodo
-        fetchTodos={fetchTodos}
-        editTodo={editTodo}
-        setEditTodo={setEditTodo}
-      />
-    </Box>
+            </TableHead>
+            <TableBody>
+              {todos.map((todo) => (
+                <TableRow key={todo.id}>
+                  <TableCell>{todo.title}</TableCell>
+                  <TableCell>{todo.priority}</TableCell>
+                  <TableCell>
+                    {new Date(todo.createdAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell>
+                    {todo.updatedAt
+                      ? new Date(todo.updatedAt).toLocaleString()
+                      : "N/A"}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={() => handleEdit(todo)}
+                      color="primary"
+                      variant="contained"
+                      style={{ marginRight: 8 }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(todo.id)}
+                      color="secondary"
+                      variant="contained"
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <SubmitTodo
+          fetchTodos={fetchTodos}
+          editTodo={editTodo}
+          setEditTodo={setEditTodo}
+        />
+      </Box>
+    </ThemeProvider>
   );
 };
 

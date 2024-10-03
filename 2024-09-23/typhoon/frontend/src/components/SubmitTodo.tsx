@@ -77,7 +77,7 @@ const SubmitTodo = ({ fetchTodos, editTodo, setEditTodo }: SubmitTodoProps) => {
             onChange={(event) => setPriority(Number(event.target.value))}
             sx={{ marginTop: "20px", marginBottom: "5px" }}
           />
-          <Button type="submit" variant="outlined">
+          <Button type="submit" variant="contained">
             {editTodo ? "Update" : "Add"}
           </Button>
         </Stack>

@@ -63,7 +63,7 @@ const SubmitCat = ({ fetchCats, editCat, setEditCat }: SubmitCatProps) => {
             onChange={(event) => setName(event.target.value)}
             sx={{ marginTop: "20px", marginBottom: "5px" }}
           />
-          <Button type="submit" variant="outlined">
+          <Button type="submit" variant="contained">
             {editCat ? "Update" : "Add"}
           </Button>
         </Stack>
