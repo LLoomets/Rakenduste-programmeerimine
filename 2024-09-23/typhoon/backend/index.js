@@ -6,6 +6,7 @@ const port = 8080;
 
 const catsRoutes = require("./routes/cats.routes");
 const todosRoutes = require("./routes/todos.routes");
+const jwtRoutes = require("./routes/jwt.routes");
 
 app.use(morgan("dev"));
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/cats", catsRoutes);
 app.use("/todos", todosRoutes);
+app.use("/jwt", jwtRoutes);
 
 
 app.listen(port, () => {
